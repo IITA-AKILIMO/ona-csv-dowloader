@@ -16,23 +16,31 @@ hdr=c(Accept="text/*",Accept="application/*",
               Authorization=paste("Basic",auth),
              'Content-Type' = "application/json")
 
-bdown=function(url,file,body){
-  f = CFILE(file, mode="wb")
-  a = curlPerform(url = url, writedata = f@ref, noprogress=FALSE,
+#' Download a csv file specified in the body parameter
+#'
+#'
+#'
+#' This function takes three parameters
+#' The download endpoint, name of the file to be saved and the details for the file being requested
+#' @param url endpoint for the download
+#' @param file name of the file to be saved
+#' @param bod contains data to be sent to the download endpoint
+#' @export
+downloadCsvFile <- function(url,file,body){
+  fileWriter = CFILE(file, mode="wb")
+  curlResults = curlPerform(url = url, writedata = fileWriter@ref, noprogress=FALSE,
                   .opts = list(httpheader=hdr,postfields=body,verbose=TRUE))
-  close(f)
-  return(a)
+  close(fileWriter)
+  return(curlResults)
 }
 
 fileName=("Assign_PA_AC.csv")
-subFolder=("") ##if CSV exists within a sub folder put it here
+subFolder=("") ##if CSV exists within a sub folder put the sub-folder here here
 df <- data.frame(fileName,subFolder)
 
 filePayload <- jsonlite::toJSON(unbox(df))
 
 print(paste("Downloading from",uri))
-ret = bdown(uri, fileName,filePayload)
-
-print(ret)
+ret = downloadCsvFile(uri, fileName,filePayload)
 
 print("Download completed, do something with the data now")
