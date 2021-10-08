@@ -16,8 +16,6 @@ hdr=c(Accept="text/*",Accept="application/*",
               Authorization=paste("Basic",auth),
              'Content-Type' = "application/json")
 
-print(hdr)
-
 bdown=function(url,file,body){
   f = CFILE(file, mode="wb")
   a = curlPerform(url = url, writedata = f@ref, noprogress=FALSE,
@@ -33,7 +31,7 @@ df <- data.frame(fileName,subFolder)
 filePayload <- jsonlite::toJSON(unbox(df))
 
 print(paste("Downloading from",uri))
-ret = bdown(uri, csvFile,filePayload)
+ret = bdown(uri, fileName,filePayload)
 
 print(ret)
 
