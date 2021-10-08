@@ -25,7 +25,7 @@ bdown=function(url,file,body){
 }
 
 fileName=("Assign_PA_AC.csv")
-subFolder=("") ##if CSV exists withing a subfolder put it here
+subFolder=("") ##if CSV exists within a sub folder put it here
 df <- data.frame(fileName,subFolder)
 
 filePayload <- jsonlite::toJSON(unbox(df))
