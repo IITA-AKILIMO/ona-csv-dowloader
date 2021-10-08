@@ -22,7 +22,7 @@ Currently the utility used Basic authorization, we however plant to move onto mo
 
 Sensitive information such as passwords are stored in an environment file `.env` refer to the `.env.example` for required variable names
 
-rename the  `.env.example` refer to the `.env`
+rename the  `.env.example` to `.env`
 ```md
 USER=
 PASS=
